@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container list-screen-container" id="main">
+	
+	<div>
+	
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+			<div class="notification is-danger">
+				{{ message }}
+			</div>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	
+	
+	<h2>All Sent Messages</h2>
+	<br>
+	<table style="width:100%">
+  <tr>
+    <th>Title</th>
+	<th>Author</th>
+    <th>Date</th>
+    <th>Status</th>
+	<th>Readers</th>
+	<th>Likes</th>
+	<th>Options</th>
+  </tr>
+
+
+
+	{% for msg in msgs %}
+
+	<tr id="current-title-span-{{msg.id}}">
+	
+    <td>{{ msg.title }}</td>
+    <td>{{msg.parent_user}}</td>
+    <td>{{msg.time_created}}</td>
+	
+	<td>{{msg.type}}</td>
+	<td>{{msg.all_count}}</td>
+	<td>{{msg.likes}}</td>
+	
+	<td><a href="{{ url_for('msg_delete', id=msg.id) }}" 
+	onclick="return confirm('Are you sure you want to delete this msg permanently?')" 
+	id="list-delete-a-{{msg.id}}">
+	<span class="material-icons">delete</span></a>
+	
+	<a href="{{ url_for('msg_set_to_waiting', id=msg.id) }}" 
+	id="list-delete-a-{{msg.id}}">
+	<span class="material-icons">watch_later</span></a>
+	
+	<a href="{{ url_for('msg_set_to_live', id=msg.id) }}" 
+	id="list-delete-a-{{msg.id}}">
+	<span class="material-icons">visibility</span></a>
+	
+	<a href="{{ url_for('msg_set_to_reported', id=msg.id) }}" 
+	id="list-delete-a-{{msg.id}}">
+	<span class="material-icons">gavel</span></a>
+	
+	<a href="{{ url_for('msg_liked', id=msg.id) }}" 
+	id="list-delete-a-{{msg.id}}">
+	<span class="material-icons">favorite</span></a>
+	</td>
+	
+	
+	</tr>
+	{% endfor %}
+	</table>
+	
+	</div>
+	
+	
+	
+	
+	<br>
+	
+</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container list-screen-container" id="main">
+	
+	<div>
+	
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+			<div class="notification is-danger">
+				{{ message }}
+			</div>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	
+	
+	<h2>{{ title }}</h2>
+	<br>
+	<table style="width:100%">
+  <tr>
+    <th>ID</th>
+	<th>Name</th>
+	<th>Email</th>
+    <th>Date Created</th>
+    <th>Type</th>
+	<th>Online</th>
+	<th>Options</th>
+  </tr>
+
+
+
+	{% for user in users %}
+
+	<tr id="current-title-span-{{user.id}}">
+	
+		<td>{{user.id}}</td>
+		<td>{{user.name}}</td>
+		<td>{{user.email}}</td>
+		<td>{{user.created}}</td>
+		<td>{{user.type}}</td>
+		<td>{{user.online}}</td>
+		
+		<td><a href="{{ url_for('user_delete_by_id', id=user.id) }}" 
+		onclick="return confirm('Are you sure you want to delete {{user.name}} permanently?')" 
+		id="list-delete-a-{{user.id}}">
+		<span class="material-icons">delete</span></a>
+			
+	</tr>
+	
+	{% endfor %}
+	
+	</table>
+	
+	</div>
+	
+	
+	
+	
+	<br>
+	
+</div>
+
+{% endblock %}

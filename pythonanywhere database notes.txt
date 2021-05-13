@@ -1,0 +1,48 @@
+go to new directory
+git init .
+git remote add origin https://git...
+
+
+go to databases
+start a console in your database
+mysql> SHOW tables
+
+will show all tables
+
+You can delete all the tables here with with oder from child to parents:
+mysql>DROP TABLE tasks
+query OK, ...
+mysql>DROP TABLE lists
+query OK, ...
+mysql>DROP TABLE users
+query OK, ...
+
+
+then to recreate the tables you have to go to a python3 bash,
+(open bash in the location with flask_app, and type python3 and hit enter)
+import the app python file and import db from that file and then
+call the create_all() command from the db so:
+
+from flask_app import db
+db.create_all()
+
+the db has the uri of the pythonanywhere database so you just need to be
+in the location of the flasKa_app.py to run this second console.
+
+Then go to web:
+Change the source code directory to the new one.
+go to the wsgi file and it should be:
+
+import sys
+
+# add your project directory to the sys.path
+project_home = '/home/dumi/skeleton-26-12-2020' <--path to directory with flask_app
+if project_home not in sys.path:
+    sys.path = [project_home] + sys.path
+
+# import flask app but need to call it "application" for WSGI to work
+from flask_app import app as application  # noqa
+
+
+
+

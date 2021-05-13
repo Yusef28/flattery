@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script type="text/javascript">
+		<!--  replaceWith doesn't allow for more than once because the id get's -->
+		<!-- replace (even if it's with itself it still seems to screw things up -->
+		<!-- and there is no innerHTML in jquery, it's just "html" -->
+
+		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+		$(function() {
+			$('button#myBtn').bind('click', function() {
+			  $.getJSON($SCRIPT_ROOT + '/msg_show', {
+			
+			  }, function(data) {
+				$("#flattering_words_p").html(data.result);
+			  });
+			  return false;
+			});
+		  });
+		  
+		  $(function() {
+			$('button#new_msg_btn').bind('click', function() {
+			  $.getJSON($SCRIPT_ROOT + '/msg_create', {
+				new_msg: $('input[name="new_msg"]').val()
+			  }, function(data) {
+				$("#stats").html(data.result);
+				
+				$("button#myBtn").click()
+				$("input#new_msg").val("");
+				});
+			  return false;
+			});
+		  });
+	</script>
+	
+<div class="container">
+
+	
+	
+	{% if session['user_id'] %}
+	
+	<h2 class="list-title">&#127922; &#128150; Hello {{ g.user.name}} &#128150; &#127922;</h2>
+	<h4 id="stats">{{num_users}} Users | {{num_msgs}} Compliments </h4>
+	
+		<br>
+				
+			<p class="admin-update-item-p">Type a sentence in the text area below that you think will brighten 
+			someone's day and then press the "Show me some love" button below. Another visitor will receive that message and feel good
+			and you will receive a beautiful message from another person.</p>
+				
+		<br>
+		
+	<ul class="nav navbar-nav new-list-form">
+	
+	<!--<form id="new_msg_form"  method="POST">-->
+
+		<input name="new_msg" id="new_msg" type="text" class="new-list-form-input" placeholder="New Msg..." required>
+			
+		<!--</form>-->
+		<div class="btn_with_width_100">
+				<button name="new_msg_btn" id="new_msg_btn" class="myBtn">Show Me Some Love</button>
+		</div>
+		
+		<button id="myBtn" style="display:none"></button>
+	</ul>
+	
+    {% else %}
+	
+	<h2 class="list-title">&#127922; &#128150; Welcome to Flattery! &#128150; &#127922;</h2>
+	<h4>{{num_users}} Users | {{num_msgs}} Compliments </h4>
+	
+	<br>
+	
+	<ul class="list-group admin-update-list">
+		<li class="list-group-item admin-update-list-item">
+			<h2 class="list-title admin-update-item-title">Flattery V.0.0</h2>
+				<hr>
+				<p class="admin-update-item-p">2019-2020 was a rough time for everyone,
+				so why not work towards a brighter tomorrow!
+				<br>
+				On this site you can receive positive messages just by clicking the button below.
+				
+				
+				</p>
+				<br>
+				<p class="where_the_msg_shows"></p>
+				
+				<p class="admin-update-item-p">As an anonymous visitor, you can receive 
+				messages right away by pressing "Show me some love" below.</p>
+				
+				<div class="btn_with_width_100">
+				<button id="myBtn" class="myBtn">Show Me Some Love</button>
+				</div>
+				<p class="admin-update-item-p">If you want to add messages of your own, you only 
+				need to 
+				<a href="{{ url_for('registration_wtf') }}">register a username and password</a>.
+				</p>
+				
+		</li>
+	</ul>
+	
+	{%endif %}
+	
+
+	
+</div>
+<!-- Trigger/Open The Modal -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <h3 id="flattering_words_p"></h3>
+	
+	
+  </div>
+
+</div>
+{% endblock %}

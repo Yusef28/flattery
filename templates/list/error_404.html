@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container list-screen-container" id="main">
+
+	
+	
+	<h2>Error 404</h2>
+	
+	<p>So let me explain. If you try to access a page that doesn't exist on the server
+	we call that an error 404.</p>
+	<p>
+	Y'know, people don't like to going depth about these things but I think
+	it's interesting to discuss: The first 4 means "client error"
+	so it means the client (you) have don't something wrong like typing in a misspelled url or 
+	an url for a page that doesn't exist.
+	</p>
+	<p>
+	The second number, "0", means "general syntax error" which points again to some 
+	misspelling or missing symbols.
+	</p>
+	<p>
+	The last 4 is almost like a catch all summary. "It's a 4-0-something type error".
+	</p>
+	
+	<p>Want to learn more about status codes? Here is a 
+	<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1.1">link</a>
+	to set of them</p>
+	
+</div>
+
+{% endblock %}
