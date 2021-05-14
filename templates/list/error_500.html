@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container list-screen-container" id="main">
+
+	
+	
+	<h2>Error 500</h2>
+	
+	<p>If the server encounters an unexpected situation that renders it unable to 
+	fulfill a request, it's called an Internal Server Error (500)</p>
+
+	<p>Want to learn more about status codes? Here is a 
+	<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1.1">link</a>
+	to set of them</p>
+	<p><a href="{{ url_for('index') }}">Back</a></p>
+</div>
+
+{% endblock %}

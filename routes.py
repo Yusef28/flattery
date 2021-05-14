@@ -38,13 +38,12 @@ def admin_login_required(f):
 
 	@wraps(f)
 	def decorated_function():
-		if 'user_id' not in session:
+		if g.user is None or "user_id" not in session:
 			return redirect(url_for("dashboard_forbidden"))
-		#elif user_read(session['user_id']).type != "admin":
-		#	return redirect(url_for("dashboard_forbidden"))
+		elif user_read(session['user_id']).type != "admin":
+			return redirect(url_for("dashboard_forbidden"))
 		return f()
 	return decorated_function
-	
 	
 	
 @app.route("/get_msgs_and_current_msg")
@@ -74,8 +73,6 @@ def index():
 def dashboard_show_msgs():
 	#get all msgs for the user
 	
-	
-		
 	msgs, current_msg = get_msgs_and_current_msg()
 	return render_template('list/dashboard_msgs.html', msgs=msgs)
 	

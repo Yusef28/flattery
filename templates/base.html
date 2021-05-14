@@ -43,7 +43,7 @@
 	
 	<ul class="nav navbar-nav">
 		
-	{% if g.user.name == "Yusef28" %}
+	{% if g.user.type == "admin" %}
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Msg Moderation<span class="caret"></span></a>
 			
 			<ul class="dropdown-menu">
@@ -85,14 +85,14 @@
       <li><a href="{{ url_for('login_wtf') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	  
 	  {% endif %}
-	  
+
 	</ul>
   </div>
 </nav>
 
 
 	{% block content %}
-	
+
 	{% endblock %}
 
 <!-- Flask reserves "static" for files carried over to the server.
@@ -101,6 +101,6 @@
 -->
 						
 <script src="static/scripts/modal.js"></script>
-	
+
 </body>
 </html>

@@ -28,10 +28,10 @@ from user_routes import *
 def admin_login_required(f):
 	@wraps(f)
 	def decorated_function(*args, **kwargs):
-		if g.user is None:
+		if g.user is None or "user_id" not in session:
 			return redirect(url_for("dashboard_forbidden"))
-		#elif user_read(session['user_id']).type != "admin":
-		#	return redirect(url_for("dashboard_forbidden"))
+		elif user_read(session['user_id']).type != "admin":
+			return redirect(url_for("dashboard_forbidden"))
 		return f(*args, **kwargs)
 	return decorated_function
 
